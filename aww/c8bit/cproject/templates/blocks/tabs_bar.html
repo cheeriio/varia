@@ -1,0 +1,179 @@
+<div class="tabs-bar">
+    <form action="{% url "index" %}" method="post" id="compile_form">
+    {% csrf_token %}
+    <input id="file_id_tabs" type="hidden" name="file_id" value={{file_shown.id}}>
+    <input type="hidden" name="compilation" value="smth">
+    <div class="menu-bar">
+        <ul>
+            <li class="menu-btn-block">
+                <a class="menu-button" onclick="showCPUs()">Processor</a>
+            </li>
+            <li class="menu-btn-block">
+                <a class="menu-button" onclick="showStandards()">Standard</a>
+            </li>
+            <li class="menu-btn-block">
+                <a class="menu-button" onclick="showOpt()">Optimization</a>
+            </li>
+            <li class="menu-btn-block">
+                <a class="menu-button" onclick="showDependant()">Dependant</a>
+            </li>
+            <li>
+                <a id="compile_button" class="menu-button" style="display: none; background-color: #4f9fba;" onclick="compileFun()">Compile</a>
+            </li>
+        </ul>
+    </div>
+    <div class="cpu-grid-container" id="cpu-list">
+        <div class="cpu-grid-item">
+            <input id="cpu-radio-1" class="radio-custom" name="processor" type="radio" value="MCS51" checked>
+            <label for="cpu-radio-1" class="radio-custom-label">MCS51</label>
+        </div>
+        <div class="cpu-grid-item">
+            <input id="cpu-radio-2" class="radio-custom" name="processor" type="radio" value="Z80">
+            <label for="cpu-radio-2" class="radio-custom-label">Z80</label>
+        </div>
+        <div class="cpu-grid-item">
+            <input id="cpu-radio-3" class="radio-custom" name="processor" type="radio" value="STM8">
+            <label for="cpu-radio-3" class="radio-custom-label">STM8</label>
+        </div>
+    </div>
+    <div class="cpu-grid-container" id="standard-list" style="display: none;">
+        <div class="cpu-grid-item">
+            <input id="std-radio-1" class="radio-custom" name="c_standard" type="radio" value="C89" checked>
+            <label for="std-radio-1" class="radio-custom-label">C89</label>
+        </div>
+        <div class="cpu-grid-item">
+            <input id="std-radio-2" class="radio-custom" name="c_standard" type="radio" value="C99">
+            <label for="std-radio-2" class="radio-custom-label">C99</label>
+        </div>
+        <div class="cpu-grid-item">
+            <input id="std-radio-3" class="radio-custom" name="c_standard" type="radio" value="C11">
+            <label for="std-radio-3" class="radio-custom-label">C11</label>
+        </div>
+    </div>
+    <div class="cpu-grid-container" id="opt-list" style="display: none; grid-template-columns: 1fr 1fr 1fr 1fr;">
+        <div class="cpu-grid-item">
+            <input id="opt-radio-1" class="radio-custom" name="opt-check-1" type="checkbox" value="nogcse">
+            <label for="opt-radio-1" class="radio-custom-label">nogcse</label>
+        </div>
+        <div class="cpu-grid-item">
+            <input id="opt-radio-2" class="radio-custom" name="opt-check-2" type="checkbox" value="noinvariant">
+            <label for="opt-radio-2" class="radio-custom-label">noinvariant</label>
+        </div>
+        <div class="cpu-grid-item">
+            <input id="opt-radio-3" class="radio-custom" name="opt-check-3" type="checkbox" value="noloopreverse">
+            <label for="opt-radio-3" class="radio-custom-label">noloopreverse</label>
+        </div>
+        <div class="cpu-grid-item">
+            <input id="opt-radio-4" class="radio-custom" name="opt-check-4" type="checkbox" value="nolabelopt">
+            <label for="opt-radio-4" class="radio-custom-label">nolabelopt</label>
+        </div>
+        <div class="cpu-grid-item">
+            <input id="opt-radio-5" class="radio-custom" name="opt-check-5" type="checkbox" value="no-xinit-opt">
+            <label for="opt-radio-5" class="radio-custom-label">no-xinit-opt</label>
+        </div>
+        <div class="cpu-grid-item">
+            <input id="opt-radio-6" class="radio-custom" name="opt-check-6" type="checkbox" value="nooverlay">
+            <label for="opt-radio-6" class="radio-custom-label">nooverlay</label>
+        </div>
+        <div class="cpu-grid-item">
+            <input id="opt-radio-7" class="radio-custom" name="opt-check-7" type="checkbox" value="no-peep">
+            <label for="opt-radio-7" class="radio-custom-label">no-peep</label>
+        </div>
+        <div class="cpu-grid-item">
+            <input id="opt-radio-8" class="radio-custom" name="opt-check-8" type="checkbox" value="peep-return">
+            <label for="opt-radio-8" class="radio-custom-label">peep-return</label>
+        </div>
+        <div class="cpu-grid-item">
+            <input id="opt-radio-9" class="radio-custom" name="opt-check-9" type="checkbox" value="opt-code-speed">
+            <label for="opt-radio-9" class="radio-custom-label">opt-code-speed</label>
+        </div>
+        <div class="cpu-grid-item">
+            <input id="opt-radio-10" class="radio-custom" name="opt-check-9" type="checkbox" value="opt-code-size">
+            <label for="opt-radio-10" class="radio-custom-label">opt-code-size</label>
+        </div>
+        <div class="cpu-grid-item">
+            <input id="opt-radio-11" class="radio-custom" name="opt-check-10" type="checkbox" value="fomit-frame-pointer">
+            <label for="opt-radio-11" class="radio-custom-label">fomit-frame-pointer</label>
+        </div>
+        <div class="cpu-grid-item">
+            <input id="opt-radio-12" class="radio-custom" name="opt-check-11" type="checkbox" value="nolospre">
+            <label for="opt-radio-12" class="radio-custom-label">nolospre</label>
+        </div>
+        <div class="cpu-grid-item">
+            <input id="opt-radio-13" class="radio-custom" name="opt-check-12" type="checkbox" value="allow-unsafe-read">
+            <label for="opt-radio-13" class="radio-custom-label">allow-unsafe-read</label>
+        </div>
+        <div class="cpu-grid-item">
+            <input id="opt-radio-14" class="radio-custom" name="opt-check-13" type="checkbox" value="nostdlibcall">
+            <label for="opt-radio-14" class="radio-custom-label">nostdlibcall</label>
+        </div>
+    </div>
+    <div class="cpu-grid-container" id="mcs51-options-list" style="display: none;">
+        <div class="cpu-grid-item">
+            <input id="mcs-radio-1" class="radio-custom" name="msc51-check-1" type="checkbox" value="model-small">
+            <label for="mcs-radio-1" class="radio-custom-label">model-small</label>
+        </div>
+        <div class="cpu-grid-item">
+            <input id="mcs-radio-2" class="radio-custom" name="msc51-check-1" type="checkbox" value="model-medium">
+            <label for="mcs-radio-2" class="radio-custom-label">model-medium</label>
+        </div>
+        <div class="cpu-grid-item">
+            <input id="mcs-radio-3" class="radio-custom" name="msc51-check-1" type="checkbox" value="model-large">
+            <label for="mcs-radio-3" class="radio-custom-label">model-large</label>
+        </div>
+        <div class="cpu-grid-item">
+            <input id="mcs-radio-4" class="radio-custom" name="msc51-check-1" type="checkbox" value="model-huge">
+            <label for="mcs-radio-4" class="radio-custom-label">model-huge</label>
+        </div>
+        <div class="cpu-grid-item">
+            <input id="mcs-radio-5" class="radio-custom" name="msc51-check-2" type="checkbox" value="xstack">
+            <label for="mcs-radio-5" class="radio-custom-label">xstack</label>
+        </div>
+        <div class="cpu-grid-item">
+            <input id="mcs-radio-6" class="radio-custom" name="msc51-check-3" type="checkbox" value="acall-ajmp">
+            <label for="mcs-radio-6" class="radio-custom-label">acall-ajmp</label>
+        </div>
+        <div class="cpu-grid-item">
+            <input id="mcs-radio-7" class="radio-custom" name="msc51-check-4" type="checkbox" value="no-ret-without-call">
+            <label for="mcs-radio-7" class="radio-custom-label">no-ret-without-call</label>
+        </div>
+    </div>
+    <div class="cpu-grid-container" id="z80-options-list" style="display: none;">
+        <div class="cpu-grid-item">
+            <input id="z80-radio-1" class="radio-custom" name="z80-check-1" type="checkbox" value="no-std-crt0">
+            <label for="z80-radio-1" class="radio-custom-label">no-std-crt0</label>
+        </div>
+        <div class="cpu-grid-item">
+            <input id="z80-radio-2" class="radio-custom" name="z80-check-2" type="checkbox" value="callee-saves-bc">
+            <label for="z80-radio-2" class="radio-custom-label">callee-saves-bc</label>
+        </div>
+        <div class="cpu-grid-item">
+            <input id="z80-radio-3" class="radio-custom" name="z80-check-3" type="checkbox" value="reserve-regs-iy ">
+            <label for="z80-radio-3" class="radio-custom-label">reserve-regs-iy </label>
+        </div>
+        <div class="cpu-grid-item">
+            <input id="z80-radio-4" class="radio-custom" name="z80-check-4" type="checkbox" value="fno-omit-frame-pointer">
+            <label for="z80-radio-4" class="radio-custom-label">fno-omit-frame-pointer</label>
+        </div>
+    </div>
+    <div class="cpu-grid-container" id="stm8-options-list" style="display: none;">
+        <div class="cpu-grid-item">
+            <input id="stm8-radio-1" class="radio-custom" name="stm8-check-1" type="checkbox" value="model-medium">
+            <label for="stm8-radio-1" class="radio-custom-label">model-medium</label>
+        </div>
+        <div class="cpu-grid-item">
+            <input id="stm8-radio-2" class="radio-custom" name="stm8-check-1" type="checkbox" value="model-large">
+            <label for="stm8-radio-2" class="radio-custom-label">model-large</label>
+        </div>
+    </div>
+    </form>
+    <script>
+        function compileFun() {
+            document.getElementById("compile_form").submit();
+        }
+
+        if(document.getElementById("file_id_tabs").value){
+            document.getElementById("compile_button").style.display = "block";
+        }
+    </script>
+</div>

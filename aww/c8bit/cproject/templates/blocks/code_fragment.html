@@ -1,0 +1,20 @@
+<div class="code-fragment">
+<div class="fragment-wrapper">
+<form>
+{% if processed_output %}
+{% endif %}
+{% for segment in processed_output %}<div class="segment" onclick="toggleHeader({{segment.id}})">{%if segment.header %}<div class="header">{{segment.header}}</div><div class="header-content" id="header_content_{{segment.id}}">{{segment.content}}</div>{% else %}<div class="header-content">{{segment.content}}</div>{%endif%}</div>{% endfor %}
+</form>
+</div>
+</div>
+
+<script>
+    function toggleHeader(id){
+        var content = document.getElementById("header_content_"+id);
+        if (content.style.display == "block"){
+            content.style.display = "none";
+        } else {
+            content.style.display = "block";
+        }
+    }
+</script>

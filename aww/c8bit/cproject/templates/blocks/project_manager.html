@@ -1,0 +1,18 @@
+{% for folder in project_structure.folders %}
+<li>
+    <span class="caret">{{folder.folder.name}}</span>
+    <ul class="nested active">
+        {% include "blocks/project_manager.html" with project_structure=folder %}
+    </ul>
+</li>
+{% endfor %}
+
+{% for file in project_structure.files %}
+<li ondblclick="openFileFun({{file.id}})">
+    {{file.name}}
+    <form class="file_form" method="post" id="openFile_{{file.id}}">
+        {% csrf_token %}
+        <input type="hidden" name="file_id" value="{{ file.id }}">
+    </form>
+</li>
+{% endfor %}

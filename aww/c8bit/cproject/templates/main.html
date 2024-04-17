@@ -1,0 +1,221 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pl-PL">
+<head>
+    <title>C8bit</title>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.css">
+    </link>
+
+    <link rel="stylesheet" href="https://codemirror.net/5/theme/base16-dark.css">
+    <link rel="stylesheet" href="https://codemirror.net/5/theme/base16-light.css">
+
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.js">
+    </script>
+
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/mode/clike/clike.js">
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style-readable.css' %}">
+</head>
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        var r = document.querySelector(':root');
+
+        function setDarkTheme() {
+            r.style.setProperty('--border-clr', '#555');
+            r.style.setProperty('--background-clr', '#222');
+            r.style.setProperty('--bar-back-clr', '#333');
+            r.style.setProperty('--text-clr', 'white');
+            r.style.setProperty('--tabs-back-clr', '#3A3A3A');
+            r.style.setProperty('--button-hover-clr', '#444');
+            r.style.setProperty('--scroll-hover-clr', '$666');
+            editor.setOption("theme", "base16-dark");
+        }
+
+        function setLightTheme() {
+            r.style.setProperty('--border-clr', '#777');
+            r.style.setProperty('--background-clr', '#E5E0EA');
+            r.style.setProperty('--bar-back-clr', '#BBC');
+            r.style.setProperty('--text-clr', 'black');
+            r.style.setProperty('--tabs-back-clr', '#DDD');
+            r.style.setProperty('--button-hover-clr', '#999');
+            r.style.setProperty('--scroll-hover-clr', '#666');
+            editor.setOption("theme", "base16-light");
+        }
+
+        function showCPUs() {
+            document.getElementById('standard-list').style.display = 'none';
+            document.getElementById('opt-list').style.display = 'none';
+            document.getElementById('cpu-list').style.display = 'grid';
+            document.getElementById('mcs51-options-list').style.display = 'none';
+            document.getElementById('z80-options-list').style.display = 'none';
+            document.getElementById('stm8-options-list').style.display = 'none';
+        }
+
+        function showStandards() {
+            document.getElementById('standard-list').style.display = 'grid';
+            document.getElementById('opt-list').style.display = 'none';
+            document.getElementById('cpu-list').style.display = 'none';
+            document.getElementById('mcs51-options-list').style.display = 'none';
+            document.getElementById('z80-options-list').style.display = 'none';
+            document.getElementById('stm8-options-list').style.display = 'none';
+        }
+
+        function showOpt() {
+            document.getElementById('standard-list').style.display = 'none';
+            document.getElementById('opt-list').style.display = 'grid';
+            document.getElementById('cpu-list').style.display = 'none';
+            document.getElementById('mcs51-options-list').style.display = 'none';
+            document.getElementById('z80-options-list').style.display = 'none';
+            document.getElementById('stm8-options-list').style.display = 'none';
+        }
+
+        function showDependant() {
+            document.getElementById('standard-list').style.display = 'none';
+            document.getElementById('opt-list').style.display = 'none';
+            document.getElementById('cpu-list').style.display = 'none';
+            document.getElementById('mcs51-options-list').style.display = 'none';
+            document.getElementById('z80-options-list').style.display = 'none';
+            document.getElementById('stm8-options-list').style.display = 'none';
+
+            var rates = document.getElementsByName('processor');
+            var rate_value;
+            for(var i = 0; i < rates.length; i++){
+                if(rates[i].checked){
+                    rate_value = rates[i].value;
+                }
+            }
+            if(rate_value == "MCS51"){
+                document.getElementById('mcs51-options-list').style.display = 'grid';
+            }
+            if(rate_value == "Z80"){
+                document.getElementById('z80-options-list').style.display = 'grid';
+            }
+            if(rate_value == "STM8"){
+                document.getElementById('stm8-options-list').style.display = 'grid';
+            }
+        }
+
+    </script>
+    <div class="grid-container">
+        {% include "blocks/menu_bar.html" with username=username %}
+        <div class="project-mng">
+            <ul class="nested active">
+                {% include "blocks/project_manager.html" with project_structure=project_structure %}
+            </ul>
+        </div>
+        {% include "blocks/program_text.html" with file_shown=file_shown %}
+        {% include "blocks/code_fragment.html" with processed_output=processed_output %}
+        {% include "blocks/tabs_bar.html" with file_shown=file_shown %}
+    </div>
+    <div class="prompt-popup" id="addFilePrompt">
+        <form action = "{% url "add_new_file" %}" method="post" class="prompt-container" id="addFileForm">
+            {% csrf_token %}
+            <h1>Add File</h1>
+            <label><b>Path</b></label>
+            <input type="text" placeholder="Path in the project" name="path" required>
+
+            <label><b>Content</b></label>
+            <textarea name="file_content" style="height:100px;" form="addFileForm"></textarea>
+
+            <button type="submit" class="btn" style="float:right;">Add</button>
+            <button type="button" class="btn cancel" style="float:left;" onclick="closeAddFilePrompt()">Cancel</button>
+        </form>
+    </div>
+    <script>
+        function closeAddFilePrompt() {
+            document.getElementById("addFilePrompt").style.display = "none";
+        }
+        function openAddFilePrompt() {
+            document.getElementById("addFilePrompt").style.display = "block";
+            document.getElementById("addFolderPrompt").style.display = "none";
+            document.getElementById("deleteFileFolderPrompt").style.display = "none";
+            document.getElementById("addSectionPrompt").style.display = "none";
+        }
+    </script>
+    <div class="prompt-popup" style="left:40%" id="addFolderPrompt">
+        <form action = "{% url "add_new_folder" %}" method="post" class="prompt-container" id="addFileForm">
+            {% csrf_token %}
+            <h1>Add Folder</h1>
+            <label><b>Path</b></label>
+            <input type="text" placeholder="Path in the project" name="path" required>
+
+            <button type="submit" class="btn" style="float:right;">Add</button>
+            <button type="button" class="btn cancel" style="float:left;" onclick="closeAddFolderPrompt()">Cancel</button>
+        </form>
+    </div>
+    <script>
+        function closeAddFolderPrompt() {
+            document.getElementById("addFolderPrompt").style.display = "none";
+        }
+        function openAddFolderPrompt() {
+            document.getElementById("addFolderPrompt").style.display = "block";
+            document.getElementById("addFilePrompt").style.display = "none";
+            document.getElementById("deleteFileFolderPrompt").style.display = "none";
+            document.getElementById("addSectionPrompt").style.display = "none";
+        }
+    </script>
+    <div class="prompt-popup" style="left:40%" id="deleteFileFolderPrompt">
+        <form action = "{% url "delete_file_or_folder" %}" method="post" class="prompt-container" id="addFileForm">
+            {% csrf_token %}
+            <h1>Delete File/Folder</h1>
+            <label><b>Path</b></label>
+            <input type="text" placeholder="Path in the project" name="path" required>
+
+            <button type="submit" class="btn" style="float:right;">Delete</button>
+            <button type="button" class="btn cancel" style="float:left;" onclick="closeDeleteFileFolderPrompt()">Cancel</button>
+        </form>
+    </div>
+    <script>
+        function closeDeleteFileFolderPrompt() {
+            document.getElementById("deleteFileFolderPrompt").style.display = "none";
+        }
+        function openDeleteFileFolderPrompt() {
+            document.getElementById("deleteFileFolderPrompt").style.display = "block";
+            document.getElementById("addFilePrompt").style.display = "none";
+            document.getElementById("addFolderPrompt").style.display = "none";
+            document.getElementById("addSectionPrompt").style.display = "none";
+        }
+    </script>
+    <script>
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        function openFileFun(file_id) {
+            const csrf_token = getCookie('csrftoken');
+            $.ajax({
+                type:"POST",
+                url:"{% url 'get_file' %}",
+                headers:{"X-CSRFToken":csrf_token},
+                data: {"file_id":file_id},
+                success: function(response){
+                    editor.getDoc().setValue(response.content);
+                    document.getElementById("file_shown_name").innerHTML = response.name;
+                    document.getElementById("file_shown_id").value = response.id;
+                    document.getElementById("file_shown_id_section").value = response.id;
+                    document.getElementById("file_id_tabs").value = response.id;
+                    document.getElementById("compile_button").style.display = "block";
+                },
+            });
+        }
+    </script>
+</body>
+</html>

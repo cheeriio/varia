@@ -1,0 +1,104 @@
+<div class="menu-bar">
+    <ul>
+        <li class="menu-btn-block">
+            <a class="menu-button">File</a>
+            <div class="menu-dropdown">
+                <a onclick="openAddFilePrompt()">New file</a>
+                <a onclick="openAddFolderPrompt()">New folder</a>
+                <a onclick="openDeleteFileFolderPrompt()">Delete File/Folder</a>
+                <a>Share</a>
+            </div>
+        </li>
+        <li class="menu-btn-block">
+            <a class="menu-button">Edit</a>
+            <div class="menu-dropdown">
+                <a>Undo</a>
+                <a>Redo</a>
+                <hr class="line">
+                <a>Cut</a>
+                <a>Copy</a>
+                <a>Paste</a>
+                <hr class="line">
+                <a>Find</a>
+                <a>Replace</a>
+                <hr class="line">
+                <a>Find in files</a>
+                <a>Replace in files</a>
+            </div>
+        </li>
+        <li class="menu-btn-block">
+            <a class="menu-button">Options</a>
+            <div class="menu-dropdown">
+                <a>Full Screen</a>
+                <a>Appearance</a>
+                <hr class="line">
+                <a>Extensions</a>
+                <a>And</a>
+                <a>Other</a>
+            </div>
+        </li>
+        {% if not user.is_authenticated %}
+        <li class="menu-btn-block" style="float:right">
+            <a class="menu-button" onclick="showLoginBox()">Login</a>
+            <div class="prompt-popup" id="login_window">
+                <form action= "{% url "login" %}" method="post" class="prompt-container" id="addFileForm">
+                    {% csrf_token %}
+                    <label><b>Login</b></label>
+                    <input type="text" name="user_login" required>
+        
+                    <label><b>Password</b></label>
+                    <input type="password"name="user_password" required>
+                    
+                    <button type="submit" class="btn" style="float:right;">Login</button>
+                    <button type="button" class="btn cancel" style="float:left;" onclick="hideLoginBox()">Cancel</button>
+                    <button type="button" class="btn casual" style="float:left; margin-left: 10px;" onclick="showRegisterBox()">Register</button>
+                </form>
+            </div>
+            <div class="prompt-popup" id="register_window">
+                <form action= "{% url "register" %}" method="post" class="prompt-container" id="addFileForm">
+                    {% csrf_token %}
+                    <label><b>Login</b></label>
+                    <input type="text" name="user_login" required>
+        
+                    <label><b>Password</b></label>
+                    <input type="password"name="user_password" required>
+
+                    <label><b>Username</b></label>
+                    <input type="text" name="user_username" required>
+                    
+                    <button type="submit" class="btn" style="float:right;">Register</button>
+                    <button type="button" class="btn cancel" style="float:left;" onclick="hideRegisterBox()">Cancel</button>
+                </form>
+            </div>
+        </li>
+        {% else %}
+        <li class="menu-btn-block" style="float:right">
+            <a class="menu-button" href="{% url "logout" %}">Logout</a>
+        </li>
+        <li class="menu-btn-block" style="float:right">
+            <a class="menu-button">{{ username }}</a>
+        </li>
+        {% endif %}
+        <li class="menu-btn-block" style="float:right">
+            <a class="menu-button" onclick="setLightTheme()">Light</a>
+        </li>
+        <li class="menu-btn-block" style="float:right">
+            <a class="menu-button" onclick="setDarkTheme()">Dark</a>
+        </li>
+    </ul>
+    <script>
+        function showLoginBox(){
+            document.getElementById("login_window").style.display = "block";
+        }
+        function hideLoginBox(){
+            document.getElementById("login_window").style.display = "none";
+        }
+        function showRegisterBox(){
+            document.getElementById("register_window").style.display = "block";
+            document.getElementById("login_window").style.display = "none";
+        }
+        function hideRegisterBox(){
+            document.getElementById("register_window").style.display = "none";
+        }
+    </script>
+</div>

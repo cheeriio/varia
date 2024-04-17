@@ -1,0 +1,3 @@
+public enum Career {
+    FARMER, CRAFTSMAN, ENGINEER, PROGRAMMER, MINER
+}

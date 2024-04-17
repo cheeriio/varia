@@ -1,0 +1,7 @@
+/**
+@mainpage Dokumentacja zadania telefony
+
+Biblioteka implementująca działania na numerach telefonu reprezentowanych przez ciągi znaków.
+Umożliwia ona przekierowywanie numerów telefonu, znajdywanie przekierowania itp.
+
+*/

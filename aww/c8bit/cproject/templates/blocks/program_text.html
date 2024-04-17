@@ -1,0 +1,98 @@
+<div class="prog-text" style="position: relative;">
+    <form id="programTextForm" method="post">
+        {% csrf_token %}
+        <textarea id="code-editor" name="code-editor">{{file_shown.content}}</textarea>
+        <input id="file_shown_id" type="hidden" name="file_id" value={{file_shown.id}}>
+        <div id="file_shown_name" style="position: absolute; display: inline-block; font-weight: bold; text-align: center; height: 40px; min-width: 120px; background: var(--bar-back-clr); color: var(--text-clr); outline: 1px solid var(--border-clr); padding: 10px 20px; top: 0px; right: 220px;">
+            {{file_shown.name}}
+        </div>
+        <button type="submit" name="programTextSubmit" class="btn casual" style="position: absolute; width: 100px; height: 40px; top: 0px; right: 120px;">Save</button>
+        <button onclick="showAddSectionPrompt()" type="button" name="programTextSubmit" class="btn casual" style="position: absolute; width: 120px; height: 40px; top: 0px; right: 0px;">Add section</button>
+    </form>
+</div>
+<script>
+    const editor_elem = document.getElementById("code-editor");
+    var editor = CodeMirror.fromTextArea(editor_elem, {
+        lineNumbers: true,
+        styleActiveLines: true,
+        matchBrackets: true,
+        theme: "base16-dark",
+        mode: "text/x-csrc",
+    });
+    editor.setOption("theme", "base16-dark");
+    editor.setSize("1200px", "650px");
+
+    $(document).ready(function () {
+        $('#programTextForm').submit(function () {
+            const csrf_token = getCookie('csrftoken');
+            var data_to_send = {
+                "file_id" : document.getElementById("file_shown_id").value,
+                "code_editor" : editor.getValue(),
+            };
+            $.ajax({
+                data: data_to_send,
+                type: "POST",
+                url: "{% url 'save_file' %}",
+                headers:{"X-CSRFToken":csrf_token},
+            });
+            return false;
+        });
+    })
+
+    function closeAddSectionPrompt() {
+        document.getElementById("addSectionPrompt").style.display = "none";
+    }
+
+    function showAddSectionPrompt() {
+        var txtarea = document.getElementById("code-editor");
+        var start = txtarea.selectionStart;
+        var end = txtarea.selectionEnd;
+
+        if(end - start == 0) {
+            alert("Please mark the text you want to save as section.");
+            return;
+        }
+
+        document.getElementById("form_section_start").value = start;
+        document.getElementById("form_section_end").value = end;
+
+        document.getElementById("deleteFileFolderPrompt").style.display = "none";
+        document.getElementById("addFilePrompt").style.display = "none";
+        document.getElementById("addFolderPrompt").style.display = "none";
+        document.getElementById("addSectionPrompt").style.display = "block";
+    }
+
+</script>
+
+<div class="prompt-popup" style="left:30%; top:10%;" id="addSectionPrompt">
+    <form action = "{% url "add_section" %}" method="post" class="prompt-container" id="addSectionFrom">
+        {% csrf_token %}
+        <h1>Add section</h1>
+        <label><b>Name</b></label>
+        <input type="text" placeholder="Section name" name="name">
+
+        <label><b>Description</b></label>
+        <textarea name="description" style="height:100px;" form="addSectionFrom"></textarea>
+
+        <label><b>Start</b></label>
+        <input type="number" placeholder="Section start" name="start" id="form_section_start" required>
+
+        <label><b>End</b></label>
+        <input type="number" placeholder="Section end" name="end" id="form_section_end" required>
+
+        <label><b>Type</b></label>
+        <select name="type">
+            <option value="procedure">Procedure</option>
+            <option value="comment">Comment</option>
+            <option value="directive">Directive</option>
+            <option value="variable">Variable</option>
+            <option value="assembler">Assembler</option>
+        </select>
+
+        <input type="hidden" name="file_id" id="file_shown_id_section" value={{file_shown.id}}>
+        <br><br>
+
+        <button type="submit" class="btn" style="float:right;">Add</button>
+        <button type="button" class="btn cancel" style="float:left;" onclick="closeAddSectionPrompt()">Cancel</button>
+    </form>
+</div>

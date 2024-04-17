@@ -1,0 +1,277 @@
+diff -rupNEZbB b/usr/src/include/unistd.h a/usr/src/include/unistd.h
+--- b/usr/src/include/unistd.h	2023-08-24 21:59:35.460007975 +0200
++++ a/usr/src/include/unistd.h	2023-08-24 22:03:10.599714492 +0200
+@@ -100,6 +100,11 @@ size_t	 confstr(int, char *, size_t);
+ /* also declared in stdio.h */
+ char	*cuserid(char *);	/* obsolete */
+ #endif /* __CUSERID_DECLARED */
++
++void wait_for_parent(void);
++void wait_for_child(void);
++void wait_for_sibling(void);
++
+ int	 dup(int);
+ int	 dup2(int, int);
+ int	 execl(const char *, const char *, ...);
+diff -rupNEZbB b/usr/src/lib/libc/misc/Makefile.inc a/usr/src/lib/libc/misc/Makefile.inc
+--- b/usr/src/lib/libc/misc/Makefile.inc	2023-08-24 22:14:03.414828728 +0200
++++ a/usr/src/lib/libc/misc/Makefile.inc	2023-08-24 22:04:39.443593577 +0200
+@@ -8,3 +8,6 @@ SRCS+=	initfini.c
+ 
+ # for -fstack-protector
+ SRCS+=	stack_protector.c
++
++# for wait functions used for synchronization
++SRCS += wait_for_parent.c wait_for_child.c wait_for_sibling.c
+diff -rupNEZbB b/usr/src/lib/libc/misc/wait_for_child.c a/usr/src/lib/libc/misc/wait_for_child.c
+--- b/usr/src/lib/libc/misc/wait_for_child.c	1970-01-01 01:00:00.000000000 +0100
++++ a/usr/src/lib/libc/misc/wait_for_child.c	2023-08-24 22:04:39.447593572 +0200
+@@ -0,0 +1,12 @@
++#include <lib.h>
++#include <minix/rs.h>
++
++void wait_for_child(void){
++        endpoint_t pm_pt;
++        message m;
++        if (minix_rs_lookup("pm", &pm_pt) != 0){
++                errno = ENOSYS;
++		return;
++        }
++        _syscall(pm_pt, PM_WAITFORCHILD, &m);
++}
+diff -rupNEZbB b/usr/src/lib/libc/misc/wait_for_parent.c a/usr/src/lib/libc/misc/wait_for_parent.c
+--- b/usr/src/lib/libc/misc/wait_for_parent.c	1970-01-01 01:00:00.000000000 +0100
++++ a/usr/src/lib/libc/misc/wait_for_parent.c	2023-08-24 22:04:39.447593572 +0200
+@@ -0,0 +1,13 @@
++#include <lib.h>
++#include <minix/rs.h>
++
++void wait_for_parent(void){
++        endpoint_t pm_pt;
++        message m;
++        if (minix_rs_lookup("pm", &pm_pt) != 0){
++                errno = ENOSYS;
++		return;
++        }
++        _syscall(pm_pt, PM_WAITFORPARENT, &m);
++}
++
+diff -rupNEZbB b/usr/src/lib/libc/misc/wait_for_sibling.c a/usr/src/lib/libc/misc/wait_for_sibling.c
+--- b/usr/src/lib/libc/misc/wait_for_sibling.c	1970-01-01 01:00:00.000000000 +0100
++++ a/usr/src/lib/libc/misc/wait_for_sibling.c	2023-08-24 22:04:39.451593566 +0200
+@@ -0,0 +1,13 @@
++#include <lib.h>
++#include <minix/rs.h>
++
++void wait_for_sibling(void){
++        endpoint_t pm_pt;
++        message m;
++        if (minix_rs_lookup("pm", &pm_pt) != 0){
++                errno = ENOSYS;
++		return;
++        }
++        _syscall(pm_pt, PM_WAITFORSIBLING, &m);
++}
++
+diff -rupNEZbB b/usr/src/minix/include/minix/callnr.h a/usr/src/minix/include/minix/callnr.h
+--- b/usr/src/minix/include/minix/callnr.h	2023-08-24 21:56:42.744244682 +0200
++++ a/usr/src/minix/include/minix/callnr.h	2023-08-24 22:01:51.163822704 +0200
+@@ -58,8 +58,11 @@
+ #define PM_GETEPINFO		(PM_BASE + 45)
+ #define PM_GETPROCNR		(PM_BASE + 46)
+ #define PM_GETSYSINFO		(PM_BASE + 47)
++#define PM_WAITFORPARENT	(PM_BASE + 48)
++#define PM_WAITFORCHILD		(PM_BASE + 49)
++#define PM_WAITFORSIBLING	(PM_BASE + 50)
+ 
+-#define NR_PM_CALLS		48	/* highest number from base plus one */
++#define NR_PM_CALLS		51	/* highest number from base plus one */
+ 
+ /*===========================================================================*
+  *				Calls to VFS				     *
+diff -rupNEZbB b/usr/src/minix/servers/pm/forkexit.c a/usr/src/minix/servers/pm/forkexit.c
+--- b/usr/src/minix/servers/pm/forkexit.c	2023-08-24 21:57:54.344146414 +0200
++++ a/usr/src/minix/servers/pm/forkexit.c	2023-08-24 22:02:13.055792864 +0200
+@@ -85,6 +85,7 @@ int do_fork()
+   procs_in_use++;
+   *rmc = *rmp;			/* copy parent's process slot to child's */
+   rmc->mp_parent = who_p;			/* record child's parent */
++  rmc->sync_status = NOT_WAITING;
+   if (!(rmc->mp_trace_flags & TO_TRACEFORK)) {
+ 	rmc->mp_tracer = NO_TRACER;		/* no tracer attached */
+ 	rmc->mp_trace_flags = 0;
+@@ -182,6 +183,7 @@ int do_srv_fork()
+   procs_in_use++;
+   *rmc = *rmp;			/* copy parent's process slot to child's */
+   rmc->mp_parent = who_p;			/* record child's parent */
++  rmc->sync_status = NOT_WAITING;
+   if (!(rmc->mp_trace_flags & TO_TRACEFORK)) {
+ 	rmc->mp_tracer = NO_TRACER;		/* no tracer attached */
+ 	rmc->mp_trace_flags = 0;
+diff -rupNEZbB b/usr/src/minix/servers/pm/Makefile a/usr/src/minix/servers/pm/Makefile
+--- b/usr/src/minix/servers/pm/Makefile	2023-08-24 21:57:54.336146425 +0200
++++ a/usr/src/minix/servers/pm/Makefile	2023-08-24 22:02:13.047792875 +0200
+@@ -4,7 +4,7 @@
+ PROG=	pm
+ SRCS=	main.c forkexit.c exec.c time.c alarm.c \
+ 	signal.c utility.c table.c trace.c getset.c misc.c \
+-	profile.c mcontext.c schedule.c
++	profile.c mcontext.c schedule.c wait.c
+ 
+ DPADD+=	${LIBSYS} ${LIBTIMERS}
+ LDADD+=	-lsys -ltimers
+diff -rupNEZbB b/usr/src/minix/servers/pm/mproc.h a/usr/src/minix/servers/pm/mproc.h
+--- b/usr/src/minix/servers/pm/mproc.h	2023-08-24 21:57:54.352146403 +0200
++++ a/usr/src/minix/servers/pm/mproc.h	2023-08-24 22:02:13.063792853 +0200
+@@ -70,6 +70,7 @@ EXTERN struct mproc {
+   char mp_name[PROC_NAME_LEN];	/* process name */
+ 
+   int mp_magic;			/* sanity check, MP_MAGIC */
++  char sync_status;		/* does proc wait for synchronization */
+ } mproc[NR_PROCS];
+ 
+ /* Flag values */
+@@ -93,3 +94,9 @@ EXTERN struct mproc {
+ #define TAINTED		0x40000 /* process is 'tainted' */
+ 
+ #define MP_MAGIC	0xC0FFEE0
++
++#define NOT_WAITING	0
++#define WAITING_PARENT	1
++#define	WAITING_CHILD	2
++#define WAITING_SIBLING 3
++
+diff -rupNEZbB b/usr/src/minix/servers/pm/proto.h a/usr/src/minix/servers/pm/proto.h
+--- b/usr/src/minix/servers/pm/proto.h	2023-08-24 21:57:54.356146398 +0200
++++ a/usr/src/minix/servers/pm/proto.h	2023-08-24 22:02:13.067792847 +0200
+@@ -4,6 +4,11 @@ struct mproc;
+ 
+ #include <minix/timers.h>
+ 
++/* wait.c */
++int do_waitforparent(void);
++int do_waitforchild(void);
++int do_waitforsibling(void);
++
+ /* alarm.c */
+ int do_itimer(void);
+ void set_alarm(struct mproc *rmp, clock_t ticks);
+diff -rupNEZbB b/usr/src/minix/servers/pm/table.c a/usr/src/minix/servers/pm/table.c
+--- b/usr/src/minix/servers/pm/table.c	2023-08-24 21:57:54.360146392 +0200
++++ a/usr/src/minix/servers/pm/table.c	2023-08-24 22:02:13.071792842 +0200
+@@ -58,5 +58,8 @@ int (* const call_vec[NR_PM_CALLS])(void
+ 	CALL(PM_EXEC_RESTART)	= do_execrestart,
+ 	CALL(PM_GETEPINFO)	= do_getepinfo,		/* getepinfo(2) */
+ 	CALL(PM_GETPROCNR)	= do_getprocnr,		/* getprocnr(2) */
+-	CALL(PM_GETSYSINFO)	= do_getsysinfo		/* getsysinfo(2) */
++	CALL(PM_GETSYSINFO)	= do_getsysinfo,	/* getsysinfo(2) */
++	CALL(PM_WAITFORPARENT)	= do_waitforparent,
++	CALL(PM_WAITFORCHILD)	= do_waitforchild,
++	CALL(PM_WAITFORSIBLING)	= do_waitforsibling
+ };
+diff -rupNEZbB b/usr/src/minix/servers/pm/wait.c a/usr/src/minix/servers/pm/wait.c
+--- b/usr/src/minix/servers/pm/wait.c	1970-01-01 01:00:00.000000000 +0100
++++ a/usr/src/minix/servers/pm/wait.c	2023-08-24 22:02:13.119792777 +0200
+@@ -0,0 +1,102 @@
++/* This file handles the WAITFORPARENT, WAITFORCHILD, WAITFORSIBLING 
++ * system calls. They work as follows:
++ * - check in 'mproc' whether there exists a process properly related
++ * that waits for us
++ * - if so unblock it and return
++ * - else block the calling process
++ *
++ * The entry points are:
++ *   do_waitforparent
++ *   do_waitforchild
++ *   do_waitforsibling
++ */
++
++#include "pm.h"
++#include "mproc.h"
++
++static void stop_proc()
++{
++	switch(sys_delay_stop(mp->mp_endpoint)) {
++		case OK:
++			mp->mp_flags |= PROC_STOPPED;
++			return;
++		case EBUSY:
++			mp->mp_flags |= DELAY_CALL;
++			return;
++		default:
++			return;
++	}
++}
++
++static void resume_proc(struct mproc* rmp)
++{
++	sys_resume(rmp->mp_endpoint);
++	rmp->mp_flags &= ~(PROC_STOPPED | UNPAUSED);
++}
++
++int
++do_waitforparent(void)
++{
++	// Parent process.
++	register struct mproc *rmp = &mproc[mp->mp_parent];
++
++	if(rmp->sync_status == WAITING_CHILD) {
++		rmp->sync_status = NOT_WAITING;
++		resume_proc(rmp);
++		return OK;
++	}
++
++	mp->sync_status = WAITING_PARENT;
++	stop_proc();
++
++	return OK;
++}
++
++int
++do_waitforchild(void)
++{
++	register struct mproc *rmc;	// Child process
++	int our_index;
++
++	for(int i = 0; i < NR_PROCS; i++) {
++		if(mproc[i].mp_pid == mp->mp_pid) {
++			our_index = i;
++			break;
++		}
++	}
++	
++	for(int i = 0; i < NR_PROCS; i++) {
++		rmc = &mproc[i];
++		if(rmc->mp_parent == our_index && rmc->sync_status == WAITING_PARENT){
++			rmc->sync_status = NOT_WAITING;
++			resume_proc(rmc);
++			return OK;
++		}
++	}
++
++	mp->sync_status = WAITING_CHILD;
++	stop_proc();
++
++	return OK;
++}
++
++int
++do_waitforsibling(void)
++{
++	register struct mproc *rms;	// Sibling process
++	int parent_id = mp->mp_parent;
++
++	for(int i = 0; i < NR_PROCS; i++) {
++		rms = &mproc[i];
++		if(rms != mp && rms->mp_parent == parent_id && rms->sync_status == WAITING_SIBLING){
++			rms->sync_status = NOT_WAITING;
++			resume_proc(rms);
++			return OK;
++		}
++	}
++
++	mp->sync_status = WAITING_SIBLING;
++	stop_proc();
++
++	return OK;
++}

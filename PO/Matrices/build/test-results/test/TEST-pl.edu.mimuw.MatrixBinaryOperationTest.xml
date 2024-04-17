@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="pl.edu.mimuw.MatrixBinaryOperationTest" tests="74" skipped="3" failures="1" errors="0" timestamp="2022-05-17T22:03:46" hostname="michal-Inspiron-5570" time="0.534">
+  <properties/>
+  <testcase name="[2] 4.0 5.0 6.0 &#10;, 2 3&#10;1.0 0 2.0 0 3.0 &#10;4.0 0 5.0 0 6.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.031"/>
+  <testcase name="[9] 2 2&#10;1 0 &#10;0 1 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.03"/>
+  <testcase name="[9] 2 2&#10;1 0 &#10;0 1 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.035"/>
+  <testcase name="[1] 4.0 5.0 6.0 &#10;, 4.0 5.0 6.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.001"/>
+  <testcase name="[9] 2 2&#10;1 0 &#10;0 1 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.03"/>
+  <testcase name="[1] 4.0 5.0 6.0 &#10;, 4.0 5.0 6.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.035"/>
+  <testcase name="[4] 2 3&#10;1.0 0 2.0 0 3.0 &#10;4.0 0 5.0 0 6.0 &#10;, 2 3&#10;1.0 0 2.0 0 3.0 &#10;4.0 0 5.0 0 6.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.001"/>
+  <testcase name="[3] 2 3&#10;1.0 0 2.0 0 3.0 &#10;4.0 0 5.0 0 6.0 &#10;, 4.0 5.0 6.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.001"/>
+  <testcase name="[3] 2 3&#10;1.0 0 2.0 0 3.0 &#10;4.0 0 5.0 0 6.0 &#10;, 4.0 5.0 6.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.001"/>
+  <testcase name="[1] 4.0 5.0 6.0 &#10;, 4.0 5.0 6.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.037"/>
+  <testcase name="[10] 3 3&#10;1 0 0 &#10;0 1 0 &#10;0 0 1 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.001"/>
+  <testcase name="[10] 3 3&#10;1 0 0 &#10;0 1 0 &#10;0 0 1 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.008"/>
+  <testcase name="[11] 3 2&#10;  &#10;  &#10;  &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.001"/>
+  <testcase name="[4] 2 3&#10;1.0 0 2.0 0 3.0 &#10;4.0 0 5.0 0 6.0 &#10;, 3 2&#10;1.0 0 2.0 &#10;3.0 0 4.0 &#10;5.0 0 6.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.001"/>
+  <testcase name="[9] 2 2&#10;1 0 &#10;0 1 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.034"/>
+  <testcase name="[2] 4.0 5.0 6.0 &#10;, 3 2&#10;1.0 0 2.0 &#10;3.0 0 4.0 &#10;5.0 0 6.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.001"/>
+  <testcase name="[4] 2 3&#10;1.0 0 2.0 0 3.0 &#10;4.0 0 5.0 0 6.0 &#10;, 2 3&#10;1.0 0 2.0 0 3.0 &#10;4.0 0 5.0 0 6.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.001"/>
+  <testcase name="[10] 3 3&#10;1 0 0 &#10;0 1 0 &#10;0 0 1 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.014"/>
+  <testcase name="[2] 4.0 5.0 6.0 &#10;, 2 3&#10;1.0 0 2.0 0 3.0 &#10;4.0 0 5.0 0 6.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.013"/>
+  <testcase name="[2] 3.0 4.0 &#10;5.0 6.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.001"/>
+  <testcase name="[3] 2 3&#10;1.0 0 2.0 0 3.0 &#10;4.0 0 5.0 0 6.0 &#10;, 4.0 5.0 6.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.002"/>
+  <testcase name="[4] 2 3&#10;1.0 0 2.0 0 3.0 &#10;4.0 0 5.0 0 6.0 &#10;, 2 3&#10;1.0 0 2.0 0 3.0 &#10;4.0 0 5.0 0 6.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.0"/>
+  <testcase name="[10] 3 3&#10;1 0 0 &#10;0 1 0 &#10;0 0 1 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.003"/>
+  <testcase name="[1] 4.0 5.0 6.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.0"/>
+  <testcase name="[11] 3 2&#10;  &#10;  &#10;  &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.0"/>
+  <testcase name="[11] 3 2&#10;  &#10;  &#10;  &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.0"/>
+  <testcase name="[1] 4.0 5.0 6.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.0"/>
+  <testcase name="[11] 3 2&#10;  &#10;  &#10;  &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.008"/>
+  <testcase name="[1] 4.0 5.0 6.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.0"/>
+  <testcase name="[4] 3 3&#10;0 0 10.0 &#10;0 11.0 0 &#10;12.0 0 0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.0"/>
+  <testcase name="[3] 3 3&#10;7.0 0 0 &#10;0 8.0 0 &#10;0 0 9.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.0"/>
+  <testcase name="[2] 3.0 4.0 &#10;5.0 6.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.0"/>
+  <testcase name="[4] 3 3&#10;0 0 10.0 &#10;0 11.0 0 &#10;12.0 0 0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.004"/>
+  <testcase name="[2] 3.0 4.0 &#10;5.0 6.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.0"/>
+  <testcase name="[1] 4.0 5.0 6.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.0"/>
+  <testcase name="[3] 3 3&#10;7.0 0 0 &#10;0 8.0 0 &#10;0 0 9.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.0"/>
+  <testcase name="[8] 1 3&#10;15.0&#10;16.0&#10;17.0&#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.0"/>
+  <testcase name="[2] 4.0 5.0 6.0 &#10;, 2 3&#10;1.0 0 2.0 0 3.0 &#10;4.0 0 5.0 0 6.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.008"/>
+  <testcase name="[4] 3 3&#10;0 0 10.0 &#10;0 11.0 0 &#10;12.0 0 0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.005"/>
+  <testcase name="[5] 2 3&#10;1.0 0 2.0 0 3.0 &#10;4.0 0 5.0 0 6.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.0"/>
+  <testcase name="[6] 3 2&#10;1.0 0 2.0 &#10;3.0 0 4.0 &#10;5.0 0 6.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.0"/>
+  <testcase name="[7] 1 2&#10;18.0&#10;19.0&#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.0"/>
+  <testcase name="[3] 3 3&#10;7.0 0 0 &#10;0 8.0 0 &#10;0 0 9.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.0"/>
+  <testcase name="[7] 1 2&#10;18.0&#10;19.0&#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.0"/>
+  <testcase name="[7] 1 2&#10;18.0&#10;19.0&#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.014"/>
+  <testcase name="[4] 3 3&#10;0 0 10.0 &#10;0 11.0 0 &#10;12.0 0 0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.011">
+    <failure message="org.opentest4j.AssertionFailedError: array contents differ at index [0][0], expected: &lt;0.0&gt; but was: &lt;10.0&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: array contents differ at index [0][0], expected: &lt;0.0&gt; but was: &lt;10.0&gt;
+	at app//org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:39)
+	at app//org.junit.jupiter.api.AssertArrayEquals.failArraysNotEqual(AssertArrayEquals.java:432)
+	at app//org.junit.jupiter.api.AssertArrayEquals.assertArrayEquals(AssertArrayEquals.java:309)
+	at app//org.junit.jupiter.api.AssertArrayEquals.assertArrayElementsEqual(AssertArrayEquals.java:379)
+	at app//org.junit.jupiter.api.AssertArrayEquals.assertArrayEquals(AssertArrayEquals.java:349)
+	at app//org.junit.jupiter.api.AssertArrayEquals.assertArrayEquals(AssertArrayEquals.java:162)
+	at app//org.junit.jupiter.api.AssertArrayEquals.assertArrayEquals(AssertArrayEquals.java:158)
+	at app//org.junit.jupiter.api.Assertions.assertArrayEquals(Assertions.java:1452)
+	at app//pl.edu.mimuw.MatrixBinaryOperationTest.testZeroMatrixTimes(MatrixBinaryOperationTest.java:180)
+	at java.base@11.0.15/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base@11.0.15/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base@11.0.15/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base@11.0.15/java.lang.reflect.Method.invoke(Method.java:566)
+	at app//org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:725)
+	at app//org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at app//org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)
+	at app//org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)
+	at app//org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestTemplateMethod(TimeoutExtension.java:92)
+	at app//org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)
+	at app//org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at app//org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)
+	at app//org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:214)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:210)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:135)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:66)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at app//org.junit.platform.engine.support.hierarchical.ForkJoinPoolHierarchicalTestExecutorService$ExclusiveTask.compute(ForkJoinPoolHierarchicalTestExecutorService.java:185)
+	at java.base@11.0.15/java.util.concurrent.RecursiveAction.exec(RecursiveAction.java:189)
+	at java.base@11.0.15/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)
+	at java.base@11.0.15/java.util.concurrent.ForkJoinPool$WorkQueue.tryRemoveAndExec(ForkJoinPool.java:1062)
+	at java.base@11.0.15/java.util.concurrent.ForkJoinPool.awaitJoin(ForkJoinPool.java:1688)
+	at java.base@11.0.15/java.util.concurrent.ForkJoinTask.doJoin(ForkJoinTask.java:397)
+	at java.base@11.0.15/java.util.concurrent.ForkJoinTask.get(ForkJoinTask.java:1004)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask$DefaultDynamicTestExecutor.awaitFinished(NodeTestTask.java:236)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:158)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at app//org.junit.platform.engine.support.hierarchical.ForkJoinPoolHierarchicalTestExecutorService$ExclusiveTask.compute(ForkJoinPoolHierarchicalTestExecutorService.java:185)
+	at java.base@11.0.15/java.util.concurrent.RecursiveAction.exec(RecursiveAction.java:189)
+	at java.base@11.0.15/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)
+	at java.base@11.0.15/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1020)
+	at java.base@11.0.15/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1656)
+	at java.base@11.0.15/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1594)
+	at java.base@11.0.15/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:183)
+</failure>
+  </testcase>
+  <testcase name="[6] 3 2&#10;1.0 0 2.0 &#10;3.0 0 4.0 &#10;5.0 0 6.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.001"/>
+  <testcase name="[6] 3 2&#10;1.0 0 2.0 &#10;3.0 0 4.0 &#10;5.0 0 6.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.0"/>
+  <testcase name="[3] 2 3&#10;1.0 0 2.0 0 3.0 &#10;4.0 0 5.0 0 6.0 &#10;, 3.0 4.0 &#10;5.0 6.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.013"/>
+  <testcase name="[9] 2 2&#10;1 0 &#10;0 1 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.001"/>
+  <testcase name="[5] 2 3&#10;1.0 0 2.0 0 3.0 &#10;4.0 0 5.0 0 6.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.001"/>
+  <testcase name="[1] 4.0 5.0 6.0 &#10;, 3.0 4.0 &#10;5.0 6.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.001"/>
+  <testcase name="[10] 3 3&#10;1 0 0 &#10;0 1 0 &#10;0 0 1 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.001"/>
+  <testcase name="[11] 3 2&#10;  &#10;  &#10;  &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.0"/>
+  <testcase name="[5] 2 3&#10;1.0 0 2.0 0 3.0 &#10;4.0 0 5.0 0 6.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.001"/>
+  <testcase name="[8] 1 3&#10;15.0&#10;16.0&#10;17.0&#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.0"/>
+  <testcase name="[7] 1 2&#10;18.0&#10;19.0&#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.0"/>
+  <testcase name="[8] 1 3&#10;15.0&#10;16.0&#10;17.0&#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.003"/>
+  <testcase name="[8] 1 3&#10;15.0&#10;16.0&#10;17.0&#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.017"/>
+  <testcase name="[5] 2 3&#10;1.0 0 2.0 0 3.0 &#10;4.0 0 5.0 0 6.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.0"/>
+  <testcase name="[2] 3.0 4.0 &#10;5.0 6.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.0"/>
+  <testcase name="[3] 3 3&#10;7.0 0 0 &#10;0 8.0 0 &#10;0 0 9.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.0"/>
+  <testcase name="[6] 3 2&#10;1.0 0 2.0 &#10;3.0 0 4.0 &#10;5.0 0 6.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.0"/>
+  <testcase name="[8] 1 3&#10;15.0&#10;16.0&#10;17.0&#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.001"/>
+  <testcase name="[6] 3 2&#10;1.0 0 2.0 &#10;3.0 0 4.0 &#10;5.0 0 6.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.001"/>
+  <testcase name="[1] 4.0 5.0 6.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.016"/>
+  <testcase name="[2] 3.0 4.0 &#10;5.0 6.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.01"/>
+  <testcase name="[5] 2 3&#10;1.0 0 2.0 0 3.0 &#10;4.0 0 5.0 0 6.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.001"/>
+  <testcase name="[7] 1 2&#10;18.0&#10;19.0&#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.003"/>
+  <testcase name="[4] 3 3&#10;0 0 10.0 &#10;0 11.0 0 &#10;12.0 0 0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.0"/>
+  <testcase name="[3] 3 3&#10;7.0 0 0 &#10;0 8.0 0 &#10;0 0 9.0 &#10;" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.009"/>
+  <testcase name="testPlusSparseMatrices()" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.474">
+    <skipped/>
+  </testcase>
+  <testcase name="testMinusSparseMatrices()" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.567">
+    <skipped/>
+  </testcase>
+  <testcase name="testTimesSparseMatrices()" classname="pl.edu.mimuw.MatrixBinaryOperationTest" time="0.457">
+    <skipped/>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
